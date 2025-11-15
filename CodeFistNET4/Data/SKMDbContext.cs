@@ -11,5 +11,16 @@ namespace CodeFistNET4.Data
 
         public DbSet<MaKhuyenMai> maKhuyenMais { get; set; }
         public DbSet<LoaiKhuyenMai> loaiKhuyenMais { get; set; }
+
+        public DbSet<KhachHang> khachHang { get; set; }
+        public DbSet<LoaiKhachHang> loaiKhachHangs { get; set; }
+        public DbSet<Account> accounts { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Account>().HasOne(a => a.khachHang)
+                .WithOne(kh => kh.Account)
+                .HasForeignKey<KhachHang>(kh => kh.idAccount).OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

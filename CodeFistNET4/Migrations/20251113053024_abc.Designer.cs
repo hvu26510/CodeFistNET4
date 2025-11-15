@@ -3,6 +3,7 @@ using CodeFistNET4.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFistNET4.Migrations
 {
     [DbContext(typeof(SKMDbContext))]
-    partial class SKMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251113053024_abc")]
+    partial class abc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,27 +23,6 @@ namespace CodeFistNET4.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CodeFistNET4.Models.DataModels.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("accounts");
-                });
 
             modelBuilder.Entity("CodeFistNET4.Models.DataModels.KhachHang", b =>
                 {
@@ -69,15 +51,9 @@ namespace CodeFistNET4.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idAccount")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LoaiKHID");
-
-                    b.HasIndex("idAccount")
-                        .IsUnique();
 
                     b.ToTable("KhachHang", "QLKH");
                 });
@@ -149,14 +125,6 @@ namespace CodeFistNET4.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CodeFistNET4.Models.DataModels.Account", "Account")
-                        .WithOne("khachHang")
-                        .HasForeignKey("CodeFistNET4.Models.DataModels.KhachHang", "idAccount")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
                     b.Navigation("LoaiKhachHang");
                 });
 
@@ -169,12 +137,6 @@ namespace CodeFistNET4.Migrations
                         .IsRequired();
 
                     b.Navigation("LoaiKhuyenMai");
-                });
-
-            modelBuilder.Entity("CodeFistNET4.Models.DataModels.Account", b =>
-                {
-                    b.Navigation("khachHang")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

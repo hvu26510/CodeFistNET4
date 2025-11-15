@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CodeFistNET4.Models.DataModels
@@ -12,6 +13,7 @@ namespace CodeFistNET4.Models.DataModels
 
         [ForeignKey("LoaiKhuyenMai")]       
         public int lkmID { get; set; }
+        [ValidateNever]
         public virtual LoaiKhuyenMai LoaiKhuyenMai { get; set; }
     }
 }
